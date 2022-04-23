@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="registerdemo.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<title>Education</title>
+</head>
+<body>
+ <form onsubmit="validate()" >
+        <div>
+            <h1>Admission App</h1>
+
+            <div>
+                <span> <label for="name">Name </label></span>
+                <span><input type="text" name="name" id="name" placeholder="Enter your name" required autofocus></span>
+                <p style="color: crimson;">[Type initial at the end. Eg:RAHUL D] </p>
+            </div><br>
+            <div>
+                <span><label for="role">Role </label></span>
+                <select id="role" required >
+                    <option value="" disabled  >---select---</option>
+                    <option value="A">Admin</option>
+                    <option value="U" selected>User</option>
+                </select>
+                <p style="color: crimson;">[Enter your Role] </p>
+            </div><br>
+            <div>
+                <span><label for="mobilenumber">MobileNumber</label></span>
+                <span><input type="tel" name="mobilenumber" id="mobilenumber" placeholder="Enter MobileNumber" required>
+                </span>
+                <p style="color: crimson;">[Enter 10 digit mobile number] </p>
+            </div><br>
+
+
+        <div>
+            <span><label for="agedropdown">Select your age</label></span>
+            <select id="getage" name="agedropdown" class="agedropdown" reqired>
+                <option value="0">select your age</option>
+            </select>
+            <p style="color: crimson;">[Enter your Age] </p>
+        </div>
+        <br>
+        <script>
+            var ddl =document.getElementById('getage');
+            for(var i=1 ; i<=100 ; i++){
+                var theoption = new Option;
+                theoption.text =i;
+                theoption.value=i;
+                ddl.options[i]= theoption;
+            }
+        </script>
+        
+            
+            <div>
+                <span><label for="yearofstudy">YearOfStudy</label></span>
+                <br>
+                <input type="radio" name="yearofstudy" id="yearofstudy" value="1"required/>First Year<br>
+                <input type="radio" name="yearofstudy" id="yearofstudy" value="2"/>Second Year<br>
+                <input type="radio" name="yearofstudy" id="yearofstudy" value="3"/>Third Year<br>
+                <input type="radio" name="yearofstudy" id="yearofstudy" value="4"/>Fourth Year
+                <p style="color: crimson;">[ Enter your Year Of Study ]</p>
+            </div><br>
+            <div>
+                <span>
+                    <label for="mark">HSC percentage</label>
+                    <input type="mark" name="mark" id="mark" min="0" max="100" placeholder="Enter your mark" required>
+                </span>
+                <p style="color: crimson;">[ Enter your HSC percentage ]</p>
+            </div><br>
+            <div>
+                <span>
+                    <lable for="email">Email-Id</lable>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                </span>
+                <p style="color: crimson;">[ Enter your Email-Id ]</p>
+            </div><br>
+            <div>
+                <span>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your Password" required>
+                </span>
+                <p style="color: crimson;">[ Enter your password ]</p>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" >Submit</button>
+            </div>
+
+        </div>
+    </form>
+
+
+<script>
+    function validate()
+    {
+        
+        try{
+            if(name==null ||name.trim()=="")
+            {
+              throw new Error("Enter valid name");
+            }
+            if(role!=U || role!=A)
+            {
+                throw new Error("Please enter your role");
+            }
+            if(mobilenumber!=10)
+            {
+                throw new Error("Please enter a valid phone number");
+            }
+            if(age<0||age>100)
+            {
+                throw new Error("Please enter your age");
+            }
+            if(yearofstudy!=1||yearofstudy!=2||yearofstudy!=3||yearofstudy!=4)
+            {
+                throw new Error("Please enter your Year Of Study");
+            }
+            if(mark<0||mark>100)
+            {
+                throw new Error("Enter a valid mark");
+            }
+            if(email==null||email.trim()=="")
+            {
+               throw new Error("Enter a valid Email")
+            }
+            if(password>7)
+            {
+                throw new Error("Enter a valid Password")
+            }
+            const url="http://localhost:8080/project01web/registerServelet?name="+name+"&role="+role+"&mobilenumber="+mobilenumber+"&age="+age+"&yearofstudy="+yearofstudy+"&mark="+mark+"&email="+email+"&password="+password;
+            fetch(url).then(res=>res.text()).then(res=>{
+                alert(res);
+                windows.location.href=""
+            }
+
+            )
+        }
+        catch(err){
+             document.querySelector("#message").innerHTML=err.message;
+        }
+       
+    }
+   
+</script>
+</body>
+</html>
